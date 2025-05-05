@@ -40,4 +40,30 @@ export const signUp = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {};
+export const login = async (req: Request, res: Response): Promise<any> => {
+  const { email, password } = req.body;
+
+  try {
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "All fields are required to continue" });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid Crendentials" });
+    }
+
+    res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      message: "Login successful",
+    });
+  } catch (error: any) {
+    console.log("Error in login controller", error.message);
+    return res.status(500).json({ error: error.message });
+  }
+};
