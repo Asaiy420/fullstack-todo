@@ -11,7 +11,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); // Parse JSON bodies in requests
-app.use(cors()); // Allow cross-origin requests
+app.use(
+  cors({
+    origin: "http://localhost:3000", // or whatever port your frontend is running on
+    credentials: true,
+  })
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
