@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json()); // Parse JSON bodies in requests
 app.use(
   cors({
-    origin: "http://localhost:3000", // or whatever port your frontend is running on
+    origin: "http://localhost:5173", 
     credentials: true,
   })
 );
